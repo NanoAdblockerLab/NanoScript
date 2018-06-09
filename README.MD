@@ -41,15 +41,43 @@ The first, second, ..., eighth register. There are a total of 8 registers.
 
 ### `EXIT` - Exit
 
-Opcode: `0`
+Opcode: `0b0000000`
 
 0 arguments expected
 
 Stop execution of current script.
 
+### `LOAD` - Load
+
+Opcode: `0b0000010`
+
+2 arguments expected
+
+`arg0` - The source data storage number
+`arg1` - The target register number
+
+Copy the value in source to the target.
+
+`Invalid Instruction` will be raised if the data storage number or the 
+register number is invalid, and the faulty script will be terminated.
+
+### `MOVE` - Move
+
+Opcode: `0b0000011`
+
+2 arguments expected
+
+`arg0` - The source register number
+`arg1` - The target register number
+
+Copy the value in source to the target.
+
+`Invalid Instruction` will be raised if either register number is invalid, and
+the faulty script will be terminated.
+
 ### `SYSC` - System call
 
-Opcode: `1`
+Opcode: `0b0000001`
 
 1 argument expected
 
@@ -69,7 +97,7 @@ faulty script will be terminated.
 
 ### `EXIF` - Exit if
 
-Opcode: `10`
+Opcode: `0b0100000`
 
 1 argument expected
 
@@ -83,7 +111,7 @@ faulty script will be terminated.
 
 ### `EXIN` - Exit if not
 
-Opcode: `11`
+Opcode: `0b0100001`
 
 1 argument expected
 
@@ -97,7 +125,7 @@ faulty script will be terminated.
 
 ### `JPIF` - Jump if
 
-Opcode: `12`
+Opcode: `0b0100010`
 
 2 arguments expected
 
@@ -110,11 +138,12 @@ If the register in question holds a truthy value, add `arg1` to `ip`.
 faulty script will be terminated.
 
 `Segmentation Fault` will be raised if `ip` points beyond the end of
-instructions buffer after the addition.
+instructions buffer after the addition, and the faulty script will be
+terminated.
 
 ### `JPIN` - Jump if not
 
-Opcode: `13`
+Opcode: `0b0100011`
 
 2 arguments expected
 
@@ -127,4 +156,5 @@ If the register in question holds a falsy value, add `arg1` to `ip`.
 faulty script will be terminated.
 
 `Segmentation Fault` will be raised if `ip` points beyond the end of
-instructions buffer after the addition.
+instructions buffer after the addition, and the faulty script will be
+terminated.

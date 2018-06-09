@@ -54,6 +54,7 @@ Opcode: `0b0000010`
 2 arguments expected
 
 `arg0` - The source data storage number
+
 `arg1` - The target register number
 
 Copy the value in source to the target.
@@ -68,6 +69,7 @@ Opcode: `0b0000011`
 2 arguments expected
 
 `arg0` - The source register number
+
 `arg1` - The target register number
 
 Copy the value in source to the target.
@@ -130,6 +132,7 @@ Opcode: `0b0100010`
 2 arguments expected
 
 `arg0` - The register number to assert
+
 `arg1` - The offset, must be a strictly positive integer
 
 If the register in question holds a truthy value, add `arg1` to `ip`.
@@ -148,6 +151,7 @@ Opcode: `0b0100011`
 2 arguments expected
 
 `arg0` - The register number to assert
+
 `arg1` - The offset, must be a strictly positive integer
 
 If the register in question holds a falsy value, add `arg1` to `ip`.

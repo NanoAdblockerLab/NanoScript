@@ -2,6 +2,7 @@
 
 Experimental bytecode virtual machine
 
+
 ## Overview
 
 NanoScript is a scripting language that runs on top of a virtual machine
@@ -14,6 +15,7 @@ INSTRUCTION arg0 arg1 ...
 
 When compiled, the texual code will be converted to a bytecode, each byte can
 have value of 0 to 127 in order to ensure encoding goes smoothly.
+
 
 ## Glossary
 
@@ -34,7 +36,8 @@ The instruction pointer, it points to the **next** instruction to fetch.
 
 The first, second, ..., eighth register. There are a total of 8 registers.
 
-## Instructions - Basic Control
+
+## Instructions - Basic
 
 ### `EXIT` - Exit
 
@@ -44,44 +47,84 @@ Opcode: `0`
 
 Stop execution of current script.
 
-### `JPIF` - Jump if
+### `SYSC` - System call
 
-Opcode: `10`
+Opcode: `1`
 
-2 arguments expected
+1 argument expected
 
-`arg0` - The register number to assert
-`arg1` - The offset, must be a strictly positive integer
+`arg0` - The system call number
 
-If `arg0` is a truthy value, add `arg0` to `ip`.
+Perform a system call, arguments to the system function are to be passed
+through registers. See documentation for system calls for more details.
 
-### `JPIN` - Jump if not
+Depending on the execution context, different system functions are available.
+No two functions can have the same number, even if they will never be
+available at the same time.
 
-Opcode: `11`
+`Invalid Instruction` will be raised if the call number is invalid, and the
+faulty script will be terminated.
 
-2 arguments expected
-
-`arg0` - The register number to assert
-`arg1` - The offset, must be a strictly positive integer
-
-If `arg0` is a falsy value, add `arg0` to `ip`.
+## Instructions - Control Flow
 
 ### `EXIF` - Exit if
 
-Opcode: `12`
+Opcode: `10`
 
 1 argument expected
 
 `arg0` - The register number to assert
 
-If `arg0` is a truthy value, stop execution of current script.
+If the register in question holds a truthy value, stop execution of current
+script.
 
-### `EXIF` - Exit if not
+`Invalid Instruction` will be raised if the register number is invalid, and the
+faulty script will be terminated.
+
+### `EXIN` - Exit if not
+
+Opcode: `11`
+
+1 argument expected
+
+`arg0` - The register number to assert
+
+If the register in question holds a falsy value, stop execution of current
+script.
+
+`Invalid Instruction` will be raised if the register number is invalid, and the
+faulty script will be terminated.
+
+### `JPIF` - Jump if
+
+Opcode: `12`
+
+2 arguments expected
+
+`arg0` - The register number to assert
+`arg1` - The offset, must be a strictly positive integer
+
+If the register in question holds a truthy value, add `arg1` to `ip`.
+
+`Invalid Instruction` will be raised if the register number is invalid, and the
+faulty script will be terminated.
+
+`Segmentation Fault` will be raised if `ip` points beyond the end of
+instructions buffer after the addition.
+
+### `JPIN` - Jump if not
 
 Opcode: `13`
 
-1 argument expected
+2 arguments expected
 
 `arg0` - The register number to assert
+`arg1` - The offset, must be a strictly positive integer
 
-If `arg0` is a falsy value, stop execution of current script.
+If the register in question holds a falsy value, add `arg1` to `ip`.
+
+`Invalid Instruction` will be raised if the register number is invalid, and the
+faulty script will be terminated.
+
+`Segmentation Fault` will be raised if `ip` points beyond the end of
+instructions buffer after the addition.

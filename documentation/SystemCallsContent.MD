@@ -2,6 +2,7 @@
 
 These are system functions available to content script scope.
 
+
 ## Events and Timers
 
 ### WaitEvent(enum name)
@@ -28,3 +29,22 @@ Suspend execution for about `time` seconds.
 `time` - The amount of `0.1` seconds
 
 Suspend execution for about `time * 0.1` seconds.
+
+
+## DOM Manipulation
+
+### ElemFind(string query)
+
+1 argument expected
+
+`query` - The query selector.
+
+Write the amount of elements that match `query` into `r[0]`.
+
+### ElemClick(string query)
+
+1 argument expected
+
+`query` - The query selector.
+
+Click all elements that match `query`.

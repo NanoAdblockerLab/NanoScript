@@ -157,7 +157,7 @@ faulty script will be terminated.
 
 ### `IINV` - Invalid instruction
 
-Opcode: Any undefined opcode
+Opcode: `0b1111111` and any other undefined opcode
 
 0 arguments expected
 

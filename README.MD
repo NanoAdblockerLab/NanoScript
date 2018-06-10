@@ -151,3 +151,14 @@ If the register in question holds a falsy value, add `arg1` to `ip`.
 
 `Invalid Instruction` will be raised if the register number is invalid, and the
 faulty script will be terminated.
+
+
+## Instructions - Special
+
+### `IINV` - Invalid instruction
+
+Opcode: Any undefined opcode
+
+0 arguments expected
+
+`Invalid Instruction` will be raised, and the faulty script will be terminated.

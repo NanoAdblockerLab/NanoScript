@@ -86,7 +86,8 @@ Opcode: `0b0000001`
 `arg[0]` - The system call number
 
 Perform a system call, arguments to the system function are to be passed
-through registers. See documentation of system calls for more details.
+through registers. See documentation of compiler and system calls for more
+details.
 
 `Invalid Instruction` will be raised if the call number is invalid, and the
 faulty script will be terminated.
